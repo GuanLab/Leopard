@@ -36,7 +36,15 @@ The ChIP-seq data were downloaded from the ENCODE-DREAM challenge website:
 [conservative peaks](https://www.synapse.org/#!Synapse:syn6181337) and [fold enrichment](https://www.synapse.org/#!Synapse:syn6181334)
 and the [ENCODE project](https://www.encodeproject.org/)(The accession numbers are provided in Supplementary Table 4.)
 
-
-
+## Run Leopard predictions
+Once the required input files are put in the correpsonding directories, Leopard is ready to go (fast mode):
+```
+python Leopard.py -tf E2F1 -te K562 -chr chr21 chr22
+```
+Or you can run the complete mode with higher accuracy and longer runtime:
+```
+python Leopard.py -tf E2F1 -te K562 -chr chr21 -m 'complete'
+```
+The prediction npy files are saved in the ./output/ folder
 
 
