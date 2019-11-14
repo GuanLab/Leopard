@@ -29,6 +29,15 @@ conda install keras
 ```
 
 ## Dataset
+The data in bigwig format can be directly downloaded from our web server:
+* [DNase-seq](https://guanfiles.dcmb.med.umich.edu/dnase_bigwig/)
+* [DNA sequence](https://guanfiles.dcmb.med.umich.edu/dna_bigwig/)
+* [ChIP-seq train](https://guanfiles.dcmb.med.umich.edu/chipseq_conservative_refine_bigwig/)
+* [ChIP-seq test](https://guanfiles.dcmb.med.umich.edu/test_chipseq_conservative_refine_bigwig/)
+Before running Leopard, please download the above data (30GB) and deposit them in the "Leopard/data/" folder.
+
+The original data can be found as follows:
+
 The DNase-seq data were downloaded from the ENCODE-DREAM challenge website:
 [filtered alignment](https://www.synapse.org/#!Synapse:syn6176232)
 
@@ -43,7 +52,7 @@ python Leopard.py -tf E2F1 -te K562 -chr chr21 chr22
 ```
 Or you can run the complete mode with higher accuracy and longer runtime:
 ```
-python Leopard.py -tf E2F1 -te K562 -chr chr21 -m 'complete'
+python Leopard.py -tf E2F1 -te K562 -chr chr21 -m complete
 ```
 The prediction npy files are saved in the ./output/ folder
 
