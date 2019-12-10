@@ -33,8 +33,10 @@ for i in np.arange(len(chr_all)):
     chr_len[chr_all[i]]=num_bp[i]
 
 path_computer='../data/'
-path1=path_computer + 'dna_bigwig/' # dna
-path2=path_computer + 'dnase_bigwig/' # dnase
+path1=path_computer
+path2=path_computer
+#path1=path_computer + 'dna_bigwig/' # dna
+#path2=path_computer + 'dnase_bigwig/' # dnase
 
 # argv
 def get_args():

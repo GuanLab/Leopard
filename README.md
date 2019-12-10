@@ -34,7 +34,9 @@ The data in bigwig format can be directly downloaded from our web server:
 * [DNA sequence](https://guanfiles.dcmb.med.umich.edu/dna_bigwig/)
 * [ChIP-seq train](https://guanfiles.dcmb.med.umich.edu/chipseq_conservative_refine_bigwig/)
 * [ChIP-seq test](https://guanfiles.dcmb.med.umich.edu/test_chipseq_conservative_refine_bigwig/)
-Before running Leopard, please download the above data (30GB) and deposit them in the "Leopard/data/" folder.
+
+
+Before running Leopard, please download the above data (30GB) and deposit them in the "Leopard/data/" folder. The DNA sequence bigwig files are always needed. If you only need to make predictions on one cell type, you only need to download the "avg.bigwig" and the correpsonding DNase-seq file for this specific cell type. The ChIP-seq data are optional. You only need them if you want to re-train/adapt our models or compare predictions with experimental observations.
 
 The original data can be found as follows:
 
