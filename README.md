@@ -58,4 +58,51 @@ python Leopard.py -tf E2F1 -te K562 -chr chr21 -m complete
 ```
 The prediction npy files are saved in the ./output/ folder
 
+---
+
+## Quantile normalization for new data
+Here I use a new cell line, Ag04449, as an example to demontrate how to performan quantile normalization and generate the average signals for the delta-DNase-seq. The reference genome is GRCh37/hg19.
+### 1. download the Ag04449 DNase-seq bigwig file from the ENCODE ftp 
+The Ag04449 has two replicates and we download both of them. It also works if you only have one replicate.
+```
+cd data
+wget ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwDnase/wgEncodeUwDnaseAg04449RawRep1.bigWig
+wget ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwDnase/wgEncodeUwDnaseAg04449RawRep2.bigWig
+```
+
+### 2. download the liver DNase-seq bigwig, which is used as the reference cell line in Leopard.
+You can choose your own reference cell line. As long as you use the same reference cell line, it won't affect the result too much in most situations.
+```
+wget https://guanfiles.dcmb.med.umich.edu/dnase_bigwig/liver.bigwig
+```
+
+### 3. subsample the reference for quantile normalization
+Subsampling a subset to estimate the overall distribution, which will save a lot of time and memory. A
+new file called "sample_liver.npy" will be generated in the "output" directory
+```
+python subsample_for_qn.py -i liver.bigwig -o sample_liver.npy -rg grch37
+```
+
+### 4. subsample the input files 
+In this example, the two Ag0449 replicates are the input files. This code accepts single or multiple replicates. A new file called "sample_Ag04449.npy" will be generated in the "output" directory.
+```
+python subsample_for_qn.py -i wgEncodeUwDnaseAg04449RawRep1.bigWig wgEncodeUwDnaseAg04449RawRep2.bigWig -o sample_Ag04449.npy -rg grch37
+```
+ 
+### 5. quantile normalization
+Based on the subsampled data from the previsous two steps, quantile normalize the genome-wide signal of
+ Ag04449 to the reference liver cell line.
+```
+python quantile_normalize_bigwig.py -r ./output/sample_liver.npy -s ./output/sample_Ag04449.npy -i wgEncodeUwDnaseAg04449RawRep1.bigWig wgEncodeUwDnaseAg04449RawRep2.bigWig -o Ag04449.bigwig -rg grch37
+```
+
+### 6. calculate the average signals from all cell lines under consideratoin.
+In Leopard, we used all 13 cell lines to calculate the [avg.bigwig](https://guanfiles.dcmb.med.umich.edu/dnase_bigwig/avg.bigwig).Of note, when a new testing cell line comes, you don't need to re-calculate this reference and you can directly use "avg.biwig" we provided. In general,about 10 cell lines should be enough to generate a robust average signal.
+In case you are interested in calculating a new average, here we use liver and Ag04449 as an example. A new file called "avg_new.bigwig" will be generated.
+```
+python calculate_avg_bigwig.py -i liver.bigwig Ag04449.bigwig -o avg_new.bigwig -rg grch37
+```
+
+
+
 
