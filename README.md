@@ -30,10 +30,10 @@ conda install keras
 
 ## Dataset
 The data in bigwig format can be directly downloaded from our web server:
-* [DNase-seq](https://guanfiles.dcmb.med.umich.edu/dnase_bigwig/)
-* [DNA sequence](https://guanfiles.dcmb.med.umich.edu/dna_bigwig/)
-* [ChIP-seq train](https://guanfiles.dcmb.med.umich.edu/chipseq_conservative_refine_bigwig/)
-* [ChIP-seq test](https://guanfiles.dcmb.med.umich.edu/test_chipseq_conservative_refine_bigwig/)
+* [DNase-seq](https://guanfiles.dcmb.med.umich.edu/Leopard/dnase_bigwig/)
+* [DNA sequence](https://guanfiles.dcmb.med.umich.edu/Leopard/dna_bigwig/)
+* [ChIP-seq train](https://guanfiles.dcmb.med.umich.edu/Leopard/chipseq_conservative_refine_bigwig/)
+* [ChIP-seq test](https://guanfiles.dcmb.med.umich.edu/Leopard/test_chipseq_conservative_refine_bigwig/)
 
 
 Before running Leopard, please download the above data (30GB) and deposit them in the "Leopard/data/" folder. The DNA sequence bigwig files are always needed. If you only need to make predictions on one cell type, you only need to download the "avg.bigwig" and the correpsonding DNase-seq file for this specific cell type. The ChIP-seq data are optional. You only need them if you want to re-train/adapt our models or compare predictions with experimental observations.
@@ -97,7 +97,7 @@ python quantile_normalize_bigwig.py -r ./output/sample_liver.npy -s ./output/sam
 ```
 
 ### 6. calculate the average signals from all cell lines under consideratoin.
-In Leopard, we used all 13 cell lines to calculate the [avg.bigwig](https://guanfiles.dcmb.med.umich.edu/dnase_bigwig/avg.bigwig).Of note, when a new testing cell line comes, you don't need to re-calculate this reference and you can directly use "avg.biwig" we provided. In general,about 10 cell lines should be enough to generate a robust average signal.
+In Leopard, we used all 13 cell lines to calculate the [avg.bigwig](https://guanfiles.dcmb.med.umich.edu/Leopard/dnase_bigwig/avg.bigwig).Of note, when a new testing cell line comes, you don't need to re-calculate this reference and you can directly use "avg.biwig" we provided. In general,about 10 cell lines should be enough to generate a robust average signal.
 In case you are interested in calculating a new average, here we use liver and Ag04449 as an example. A new file called "avg_new.bigwig" will be generated.
 ```
 python calculate_avg_bigwig.py -i liver.bigwig Ag04449.bigwig -o avg_new.bigwig -rg grch37
